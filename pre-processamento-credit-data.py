@@ -11,9 +11,9 @@ base.describe()
 
 base.loc[base['age'] < 0]
 # apagar a coluna
-base.drop('age', 1, inplace=True)
+##base.drop('age', 1, inplace=True)
 # apagar somente os registros inconsistentes
-base.drop(base[base.age < 0].index, inplace=True)
+##base.drop(base[base.age < 0].index, inplace=True)
 # preencher os valores manualmente (em caso de uma base pequena)
 
 # preencher os valores com a média (ideal)
@@ -36,3 +36,6 @@ imputer = SimpleImputer() #instancio a classe, usando os métodos padrões
 imputer = imputer.fit(previsores[:, 0:3]) #para encaixar e deixar em forma
 previsores[:, 0:3] = imputer.transform(previsores[:, 0:3]) #agora eu faço a mudança dos valores na coluna
 
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+previsores = scaler.fit_transform(previsores)
