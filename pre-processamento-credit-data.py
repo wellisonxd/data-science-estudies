@@ -21,3 +21,18 @@ base.mean() #vejo a média de todos as colunas do meu dataframe
 base['age'].mean() #essa média ainda não corresponde a verdade, pois tem as idades inconsistentes
 base['age'][base.age > 0].mean() #encontro a média retirando os negativos
 base.loc[base.age < 0, 'age'] = 40.92 #insiro a média correta nas idades negativas
+
+pd.isnull(base['age'])
+
+base.loc[pd.isnull(base['age'])] #encontro somente os que estão nulo
+
+#criando as duas variáveis para poder trabalhar com previsores e classe separadamente
+previsores = base.iloc[:, 1:4].values
+classe = base.iloc[:, 4].values
+
+from sklearn.impute import SimpleImputer
+
+imputer = SimpleImputer() #instancio a classe, usando os métodos padrões
+imputer = imputer.fit(previsores[:, 0:3]) #para encaixar e deixar em forma
+previsores[:, 0:3] = imputer.transform(previsores[:, 0:3]) #agora eu faço a mudança dos valores na coluna
+
